@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Practical JavaScript</title>
+    </head>
+
+    <body>
+        <button id="display-todos-button">Display todos</button>
+            
+        <script>
+            var todos = [
+                {todoText: 'Item 1', completed: false},
+                {todoText: 'Item 2', completed: false},
+                {todoText: 'Item 3', completed: false}
+            ];
+            
+            displayTodos ();
+
+            function add(initialTodoText) {
+                todos.push({todoText: initialTodoText, completed: false});
+                console.log(todos);
+            }
+
+            function edit(position, newTodoText) {
+                todos[position].todoText = newTodoText;
+                displayTodos ();            
+            }
+
+            function remove(position) {
+                todos.splice(position, 1);
+                displayTodos ();            
+            }
+
+            function toggle(position) {
+                if (todos[position].completed === false) {
+                    todos[position].completed = true;
+                } else {
+                    todos[position].completed = false;
+                }
+                displayTodos();
+            }
+
+            function displayTodos () {
+                for (var i = 0; i < todos.length; i++) {
+                    console.log(todos[i]);
+
+                }
+            }
+
+            function toggleAll () {
+                var completedTodos = 0;
+
+                for (var i = 0; i < todos.length; i++) {
+                    if (todos[i].completed === true) {
+                        completedTodos++;
+                    }
+                }
+
+                if (completedTodos === todos.length) {
+                    for (var i = 0; i < todos.length; i++) {
+                        todos[i].completed = false;
+                    }
+                } else {
+                    for (var i = 0; i < todos.length; i++) {
+                        todos[i].completed = true;
+                    }
+                }
+
+                displayTodos();
+            }
+
+            var displayTodosButton = document.getElementById('display-todos-button');
+            displayTodosButton.addEventListener('click', displayTodos);
+
+
+        </script>
+
+
+    </body>
+</html>
