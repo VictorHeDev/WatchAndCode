@@ -1,0 +1,1 @@
+This is the Todo list project/tutorial from the webpage WatchAndCode by Gordon Zhu. I followed along with the code to learn some basic JS and html.
