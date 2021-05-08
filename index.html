@@ -15,6 +15,10 @@
         <input id='edit-text-input'>
         <button id='remove-button'>Remove</button>
         <input id='remove-input'>
+        <button id='toggle-button'>Toggle</button>
+        <input id='toggle-input'>
+
+        <ul id='todos-ul'> </ul>
 
         <script>
             var todos = [
@@ -48,18 +52,30 @@
                 displayTodos ();            
             }
 
-            function toggle(position) {
+            function toggle() {
+                var position = toggleInput.value;
                 if (todos[position].completed === false) {
                     todos[position].completed = true;
                 } else {
                     todos[position].completed = false;
                 }
+
+                toggleInput.value = '';
                 displayTodos();
             }
 
             function displayTodos () {
+            for (var i = 0; i < todos.length; i++) {
+            console.log(todos[i]);
+            }
+
+                var todosUl = document.getElementById('todos-ul'); 
+                todosUl.innerHTML = '';
+
                 for (var i = 0; i < todos.length; i++) {
-                    console.log(todos[i]);
+                    var todoLi = document.createElement('li');
+                    todoLi.innerText = todos[i].todoText;
+                    todosUl.appendChild(todoLi);
                 }
             }
 
@@ -103,6 +119,10 @@
             var removeButton = document.getElementById('remove-button');
             var removeInput = document.getElementById('remove-input');
             removeButton.addEventListener('click', remove);
+
+            var toggleButton = document.getElementById('toggle-button');
+            var toggleInput = document.getElementById('toggle-input');
+            toggleButton.addEventListener('click', toggle);
 
 
         </script>
