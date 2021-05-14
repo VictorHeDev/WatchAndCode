@@ -8,11 +8,7 @@
     <body>
         <button id="toggle-all-button">Toggle all</button>    
         <button id="add-button">Add</button>
-        <input id='add-input' type="text" autofocus>
-        <button id='edit-button'>Edit</button>
-        <input id='edit-position-input'>
-        <input id='edit-text-input'>
-        
+        <input id='add-input'>
 
         <ul id='todos-ul'> 
         </ul>
@@ -30,26 +26,27 @@
                 var initialTodoText = addInput.value;
                 todos.push({todoText: initialTodoText, completed: false});
                 addInput.value = ''; // Input resets to a blank string
-                console.log(todos);
+                displayTodos;
             }
 
-            function edit() {
-                var position = editPositionInput.value;
-                var newTodoText = editTextInput.value;
-                todos[position].todoText = newTodoText;
-                editPositionInput.value = '';
-                editTextInput.value = '';
-                displayTodos ();            
+            function edit(event) {
+                var newTodoText = prompt('Edit');
+
+                if (newTodoText !== null && newTodoText !=="") {
+                    var position = event.currentTarget.id.split('-')[1];
+                    todos[position].todoText = newTodoText;
+                    displayTodos();
+                }
             }
 
             function remove (event) {
-                var position = event.currentTarget.id;
+                var position = event.currentTarget.id.split('-')[1];
                 todos.splice(position, 1);
                 displayTodos();
             }
 
             function toggle(event) {
-                var position = event.currentTarget.id; 
+                var position = event.currentTarget.id.split('-')[1]; 
 
                 if (todos[position].completed === false) {
                     todos[position].completed = true;
@@ -73,21 +70,28 @@
                         todoLi.innerText = '[ ]' + todos[i].todoText;
                     }
 
-                    var removeButton = document.createElement('button');
-                    removeButton.innerText = 'Remove';
-                    removeButton.addEventListener('click', remove);
-                    removeButton.id = i;
-
                     var toggleButton = document.createElement('button');
                     toggleButton.innerText = 'Toggle';
                     toggleButton.addEventListener('click', toggle);
-                    toggleButton.id = i;
+                    toggleButton.id = 'toggle-' + i;
+                    
+                    var editButton = document.createElement('button');
+                    editButton.innerText = 'Edit';
+                    editButton.id = 'edit-' + i;
+                    editButton.addEventListener('click', edit);
 
+                    var removeButton = document.createElement('button');
+                    removeButton.innerText = 'Remove';
+                    removeButton.addEventListener('click', remove);
+                    removeButton.id = 'remove-' + i;
 
                     todoLi.appendChild(toggleButton);
+                    todoLi.appendChild(editButton);
                     todoLi.appendChild(removeButton);
                     todosUl.appendChild(todoLi);
                 }
+
+                var testButton = document.createElement('button');
             }
 
             function toggleAll () {
@@ -118,12 +122,6 @@
             var addButton = document.getElementById('add-button');
             var addInput = document.getElementById('add-input');
             addButton.addEventListener('click', add);
-
-            var editButton = document.getElementById('edit-button');
-            var editPositionInput = document.getElementById('edit-position-input');
-            var editTextInput = document.getElementById('edit-text-input');
-            editButton.addEventListener('click', edit);
-
         </script>
     </body>
 </html>
